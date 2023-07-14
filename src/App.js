@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, React } from "react";
 import "./style.css";
 
 const faqs = [
@@ -26,19 +26,30 @@ export default function App() {
 
 function Accordion() {
   return (
-    <div>
+    <div className="accordian">
       {faqs.map((value, index) => (
-        <Item key={index} title={value.title} text={value.text} />
+        <Item key={index} title={value.title} text={value.text} index={index} />
       ))}
     </div>
   );
 }
 
-function Item({ title, text }) {
+function Item({ title, text, index }) {
+  const [show, setShow] = useState(true);
+
+  function handleClick() {
+    setShow(!show);
+  }
+
   return (
-    <div>
+    <div className="item" onClick={handleClick}>
+      <span>0 {index + 1}</span>
       <div>{title}</div>
-      <div>{text}</div>
+      {!show ? <div> {text} </div> : ""}
+
+      {!show ? <span>+</span> : <span>-</span>}
+
+      {/* <div>{text}</div> */}
     </div>
   );
 }
