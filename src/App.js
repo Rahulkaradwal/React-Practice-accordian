@@ -26,7 +26,7 @@ export default function App() {
 
 function Accordion() {
   return (
-    <div className="accordian">
+    <div className="accordion">
       {faqs.map((value, index) => (
         <Item key={index} title={value.title} text={value.text} index={index} />
       ))}
@@ -35,19 +35,18 @@ function Accordion() {
 }
 
 function Item({ title, text, index }) {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   function handleClick() {
-    setShow(!show);
+    setShow((show) => !show);
   }
 
   return (
-    <div className="item" onClick={handleClick}>
-      <span>0 {index + 1}</span>
-      <div>{title}</div>
-      {!show ? <div> {text} </div> : ""}
-
-      {!show ? <span>+</span> : <span>-</span>}
+    <div className={`item ${show} ? "open" : ""`} onClick={handleClick}>
+      <p className="number">{index < 9 ? `0${index + 1}` : index + 1}</p>
+      <p className="title">{title}</p>
+      <p className="icon">{show ? "-" : "+"}</p>
+      {show && <div className="content-box">{text}</div>}
 
       {/* <div>{text}</div> */}
     </div>
